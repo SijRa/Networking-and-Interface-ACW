@@ -1,0 +1,7 @@
+C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locationserver\bin\Debug\locationserver.exe.config
+C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locationserver\bin\Debug\locationserver.exe
+C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locationserver\bin\Debug\locationserver.pdb
+C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locationserver\obj\Debug\locationserver.csprojAssemblyReference.cache
+C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locationserver\obj\Debug\locationserver.csproj.CoreCompileInputs.cache
+C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locationserver\obj\Debug\locationserver.exe
+C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locationserver\obj\Debug\locationserver.pdb
