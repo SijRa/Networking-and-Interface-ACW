@@ -59,8 +59,7 @@ namespace locationserver
                 socketStream.WriteTimeout = 1000;//WRITE TIMEOUT
 
                 Request currentRequest = new Request(socketStream);
-                Console.WriteLine(name + newLocation);
-                
+                Console.WriteLine("name: " + name + " location: " + newLocation);
             }
             catch (Exception e)
             {

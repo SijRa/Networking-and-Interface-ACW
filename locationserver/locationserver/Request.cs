@@ -26,29 +26,29 @@ namespace locationserver
 
         public void ReadStream(StreamReader streamReader)
         {
-            int tokenCount = 0;//Lines left to read
+            int tokenCount = 1;//Lines left to read
             string firstToken = streamReader.ReadLine();//First line
-            Console.WriteLine("SERVER: " + firstToken);
+            Console.WriteLine("SERVER: " + " MESSAGE --> " + firstToken);
             if(firstToken.Split('/')[0] != null)
             {
-                ProtocolType = "HTTP";
+                ProtocolType = "HTTP";//RETHINK LOIGC HERE
                 ProtocolCommand = firstToken.Split(' ')[0].Trim();//Protocol Command SET
-                if(ProtocolCommand == "PUT")
-                {
-                    ProtocolCommand = "POST";//HTTP PUT --> POST
-                }
-                if(firstToken.Split('/')[2] != null)
+                if(ProtocolCommand != "PUT")
                 {
                     ProtocolVersion = firstToken.Split('/')[2].Trim();//Protocol Version SET
                     if(ProtocolVersion == "1.0")
                     {
-                        Program.name = firstToken.Split(' ')[1].Split('/')[1];//HTTP 1.0 name SET
+                        Program.name = firstToken.Split('/')[1].Trim();//HTTP 1.0 name SET
                     }
                 }
                 else
                 {
                     ProtocolVersion = "0.9";
                     Program.name = firstToken.Split('/')[1].Trim();//HTTP 0.9 name SET
+                }
+                if (ProtocolCommand == "PUT")
+                {
+                    ProtocolCommand = "POST";//HTTP PUT --> POST
                 }
             }
             else
@@ -57,7 +57,7 @@ namespace locationserver
                 if(firstToken.Split(' ')[1] != null)
                 {
                     ProtocolCommand = "POST";
-                    Program.newLocation = firstToken.Split(' ')[1];//WHOIS newLocation SET
+                    Program.newLocation = firstToken.Split(' ')[1].Trim();//WHOIS newLocation SET
                 }
                 else
                 {
@@ -65,7 +65,10 @@ namespace locationserver
                 }
                 Program.name = firstToken.Split(' ')[0].Trim();//WHOIS name SET;
             }
-            if(ProtocolVersion != null && ProtocolVersion != "0.9")
+            Console.WriteLine("Protocol Command: " + ProtocolCommand);
+            Console.WriteLine("Protocol Type: " + ProtocolType);
+            Console.WriteLine("Protocol Version: " + ProtocolVersion);
+            if (ProtocolVersion != null && ProtocolVersion != "0.9")
             {
                 //Lines to be 'ignored'
                 if(ProtocolCommand == "GET")
@@ -106,20 +109,21 @@ namespace locationserver
             {
                 for (int i = 0; i < tokenCount; i++)//Tokens to be read
                 {
-                    streamReader.ReadLine();//SKIP LINES
+                    //SKIP LINES
+                    Console.WriteLine("SERVER: " + "MESSAGE --> " + streamReader.ReadLine() + " SKIPPED");
                 }
-                if(ProtocolType == "POST")
-                {
 
+                if(ProtocolCommand == "POST")
+                {
                     string lastLine = streamReader.ReadLine();
                     if (ProtocolVersion == "1.1")
                     {
-                        Program.name = lastLine.Split('&')[0].Split('=')[1];//HTTP 1.1 name SET
-                        Program.newLocation = lastLine.Split('&')[1].Split('=')[1];//HTTP 1.1 newLocation SET
+                        Program.name = lastLine.Split('&')[0].Split('=')[1].Trim();//HTTP 1.1 name SET
+                        Program.newLocation = lastLine.Split('&')[1].Split('=')[1].Trim();//HTTP 1.1 newLocation SET
                     }
                     else
                     {
-                        Program.newLocation = lastLine.Trim();//HTTP 0.9 HTTP 1.0 newLocation SET
+                        Program.newLocation = lastLine.Trim().Trim();//HTTP 0.9 HTTP 1.0 newLocation SET
                     }
                 }
             }
