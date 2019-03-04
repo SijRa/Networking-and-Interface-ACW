@@ -8,5 +8,6 @@ namespace location
 {
     class Request
     {
+
     }
 }

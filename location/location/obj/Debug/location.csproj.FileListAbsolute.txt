@@ -1,0 +1,7 @@
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\location\location\bin\Debug\location.exe.config
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\location\location\bin\Debug\location.exe
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\location\location\bin\Debug\location.pdb
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.csprojAssemblyReference.cache
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.csproj.CoreCompileInputs.cache
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.exe
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.pdb

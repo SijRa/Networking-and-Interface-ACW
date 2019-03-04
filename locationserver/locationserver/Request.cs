@@ -112,7 +112,6 @@ namespace locationserver
                     //SKIP LINES
                     Console.WriteLine("SERVER: " + "MESSAGE --> " + streamReader.ReadLine() + " SKIPPED");
                 }
-
                 if(ProtocolCommand == "POST")
                 {
                     string lastLine = streamReader.ReadLine();
@@ -128,6 +127,5 @@ namespace locationserver
                 }
             }
         }
-
     }
 }
