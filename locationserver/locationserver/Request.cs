@@ -11,121 +11,123 @@ namespace locationserver
 {
     public class Request
     {
-        NetworkStream networkStream;
+        public StreamReader streamReader;
+        public StreamWriter streamWriter;
 
-        protected string ProtocolCommand = null;
-        protected string ProtocolType = null;
-        protected string ProtocolVersion = null;
+        public string name { get; set; }
+        public string newLocation { get; set; }
 
-        public Request(NetworkStream networkStream)
+        public string ProtocolCommand;
+        public string ProtocolType;
+        public string ProtocolVersion;
+
+        public Request(NetworkStream NetworkStream)
         {
-            this.networkStream = networkStream;
-            StreamReader streamReader = new StreamReader(networkStream);
-            ReadStream(streamReader);
+            streamReader = new StreamReader(Stream.Synchronized(NetworkStream));
+            streamWriter = new StreamWriter(Stream.Synchronized(NetworkStream));
+            ReadStream();
         }
 
-        public void ReadStream(StreamReader streamReader)
+        protected void ReadStream()
         {
-            int tokenCount = 1;//Lines left to read
-            string firstToken = streamReader.ReadLine();//First line
-            Console.WriteLine("SERVER: " + " MESSAGE --> " + firstToken);
-            if(firstToken.Split('/')[0] != null)
+            string firstLine = streamReader.ReadLine();//First line
+            Console.WriteLine("SERVER: " + firstLine);
+            //PROCESS FIRST LINE HERE
+            if(firstLine.Split(' ')[0] == "GET" || firstLine.Split(' ')[0] == "POST" || firstLine.Split(' ')[0] == "PUT")//HTTP REQUEST
             {
-                ProtocolType = "HTTP";//RETHINK LOIGC HERE
-                ProtocolCommand = firstToken.Split(' ')[0].Trim();//Protocol Command SET
-                if(ProtocolCommand != "PUT")
+                ProtocolType = "HTTP";
+                if(firstLine.Split(' ')[0] == "PUT")//HTTP 0.9
                 {
-                    ProtocolVersion = firstToken.Split('/')[2].Trim();//Protocol Version SET
-                    if(ProtocolVersion == "1.0")
-                    {
-                        Program.name = firstToken.Split('/')[1].Trim();//HTTP 1.0 name SET
-                    }
+                    ProtocolCommand = "POST";//Change PUT to POST
                 }
                 else
+                {
+                    ProtocolCommand = firstLine.Split(' ')[0];//SET ProtocolCommand
+                    Console.WriteLine("SERVER: Protocol: " + ProtocolCommand);
+                }
+                if(firstLine.Split('/').Length == 2)//HTTP 0.9
                 {
                     ProtocolVersion = "0.9";
-                    Program.name = firstToken.Split('/')[1].Trim();//HTTP 0.9 name SET
                 }
-                if (ProtocolCommand == "PUT")
+                else//HTTP 1.0 AND HTTP 1.1
                 {
-                    ProtocolCommand = "POST";//HTTP PUT --> POST
+                    string ProtocolToken = firstLine.Split(' ')[2].Trim();
+                    ProtocolVersion = ProtocolToken.Split('/')[1].Trim();
                 }
+                ReadRestHTTP(firstLine);//READ REST OF HTTP MESSAGE
             }
-            else
+            else//WHOIS REQUEST
             {
                 ProtocolType = "WHOIS";
-                if(firstToken.Split(' ')[1] != null)
+                name = firstLine.Split(' ')[0].Trim();
+                ProtocolCommand = "GET";
+                if(firstLine.Split(' ').Length > 1)
                 {
                     ProtocolCommand = "POST";
-                    Program.newLocation = firstToken.Split(' ')[1].Trim();//WHOIS newLocation SET
-                }
-                else
-                {
-                    ProtocolCommand = "GET";
-                }
-                Program.name = firstToken.Split(' ')[0].Trim();//WHOIS name SET;
-            }
-            Console.WriteLine("Protocol Command: " + ProtocolCommand);
-            Console.WriteLine("Protocol Type: " + ProtocolType);
-            Console.WriteLine("Protocol Version: " + ProtocolVersion);
-            if (ProtocolVersion != null && ProtocolVersion != "0.9")
-            {
-                //Lines to be 'ignored'
-                if(ProtocolCommand == "GET")
-                {
-                    if(ProtocolVersion == "1.0")
-                    {
-                        tokenCount = 1;//Additional line to be read
-                    }
-                    else if(ProtocolVersion == "1.1")
-                    {
-                        tokenCount = 2;//Two lines to be read
-                    }
-                    else
-                    {
-                        //PROTOCOL VERSION ERROR
-                    }
-                }
-                else//POST
-                {
-                    if (ProtocolVersion == "1.0")
-                    {
-                        tokenCount = 2;//Additional line to be read
-                    }
-                    else if (ProtocolVersion == "1.1")
-                    {
-                        tokenCount = 3;//Two lines to be read
-                    }
-                    else
-                    {
-                        //PROTOCOL VERSION ERROR
-                    }
+                    newLocation = firstLine.Split(' ')[1].Trim();
                 }
             }
+            Response currentResponse = new Response(this);//Create a response object for response
+        }
 
-
-            ///html 1.0 doesnt go through this point
-            if(ProtocolType == "HTTP")
+        protected void ReadRestHTTP(string firstLine)
+        {
+            switch(ProtocolVersion)
             {
-                for (int i = 0; i < tokenCount; i++)//Tokens to be read
-                {
-                    //SKIP LINES
-                    Console.WriteLine("SERVER: " + "MESSAGE --> " + streamReader.ReadLine() + " SKIPPED");
-                }
-                if(ProtocolCommand == "POST")
-                {
-                    string lastLine = streamReader.ReadLine();
-                    if (ProtocolVersion == "1.1")
+                case "0.9":
+                    name = firstLine.Split('/')[1].Trim();
+                    if(ProtocolCommand == "POST")
                     {
-                        Program.name = lastLine.Split('&')[0].Split('=')[1].Trim();//HTTP 1.1 name SET
-                        Program.newLocation = lastLine.Split('&')[1].Split('=')[1].Trim();//HTTP 1.1 newLocation SET
+                        while(!string.IsNullOrEmpty(streamReader.ReadLine()))
+                        {
+                            streamReader.ReadLine();
+                        }
+                        newLocation = streamReader.ReadLine().Trim();
                     }
-                    else
+                    break;
+                case "1.0":
+                    name = firstLine.Split(' ')[1].Split('/')[1].Trim();
+                    if (ProtocolCommand == "POST")
                     {
-                        Program.newLocation = lastLine.Trim().Trim();//HTTP 0.9 HTTP 1.0 newLocation SET
+                        if(!string.IsNullOrEmpty(streamReader.ReadLine()))
+                        {
+                            while (!string.IsNullOrEmpty(streamReader.ReadLine()))
+                            { 
+                                Console.WriteLine(streamReader.ReadLine());
+                            }
+                        }
+                        //streamReader.ReadLine();//EMPTY LINE
+                        newLocation = streamReader.ReadLine().Trim();
                     }
-                }
+                    break;
+                case "1.1":
+                    if (ProtocolCommand == "GET")
+                    {
+                        name = firstLine.Split(' ')[1].Split('=')[1];
+                    }
+                    else if(ProtocolCommand == "POST")
+                    {
+                        while (!string.IsNullOrEmpty(streamReader.ReadLine()))
+                        {
+                            streamReader.ReadLine();
+                        }
+                        //streamReader.ReadLine();//empty line
+                        string lastLine = streamReader.ReadLine();
+                        name = lastLine.Split('&')[0].Split('=')[1];
+                        newLocation = lastLine.Split('&')[1].Split('=')[1];
+                    }
+                    break;
+                default:
+                    Console.WriteLine("SEVRER: Unsupported protocol version");
+                    break;
             }
+        }
+
+        public void Output()//Message info
+        {
+            Console.WriteLine("SERVER: Protocol Command: " + ProtocolCommand);
+            Console.WriteLine("SERVER: Protocol Type: " + ProtocolType);
+            Console.WriteLine("SERVER: Protocol Version: " + ProtocolVersion);
         }
     }
 }

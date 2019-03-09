@@ -5,3 +5,10 @@
 \\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.csproj.CoreCompileInputs.cache
 \\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.exe
 \\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.pdb
+C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\location\location\bin\Debug\location.exe.config
+C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\location\location\bin\Debug\location.exe
+C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\location\location\bin\Debug\location.pdb
+C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.csprojAssemblyReference.cache
+C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.csproj.CoreCompileInputs.cache
+C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.exe
+C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\location\location\obj\Debug\location.pdb

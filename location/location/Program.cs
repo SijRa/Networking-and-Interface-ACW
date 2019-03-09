@@ -5,25 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
 
 namespace location
 {
     class Program
     {
-        static string name;
-        static string location;
+        public static string hostName;
 
-        static string ProtocolCommand;
-        static string ProtocolType;
-        static string ProtocolVersion;
+        public static string name;
+        public static string newLocation;
+
+        public static string ProtocolCommand;
+        public static string ProtocolType;
+        public static string ProtocolVersion;
+
+        public static StreamReader sr;
+        public static StreamWriter sw;
 
         static void Main(string[] args)
         {
             try
             {
-                string name = null;
-                string location = null;
-                string hostName = "whois.net.dcs.hull.ac.uk";//Default host
+                name = null;
+                newLocation = null;
+                //uni address whois.net.dcs.hull.ac.uk
+                hostName = "localhost";//Default host
                 int port = 43;//Default port
                 ProtocolType = "WHOIS";//Default protocol
                 TcpClient client = new TcpClient();
@@ -68,21 +75,37 @@ namespace location
                         }
                     }
                     name = nameLocation.Split(' ')[0];//Name extraction
-                    location = nameLocation.Split(' ')[1];//Location extraction
+                    if(nameLocation.Split(' ').Length > 1)
+                    {
+                        newLocation = nameLocation.Split(' ')[1];//Location extraction
+                    }
                     if(string.IsNullOrEmpty(name))//Name needs to be provided whether GET or SET
                     {
                         throw new Exception("Name not provided as default argument");
                     }
                 }
-                client.Connect(hostName, port);//Establish connection
-                Console.WriteLine("Connected to " + hostName);
-                OutputSettings();//Print current configuration
-                string userInput = Console.ReadLine().Trim();//Read user input and clear leading and trailing whitespace
-                if(!string.IsNullOrEmpty(userInput.Split(' ')[1]))//Check if location exists
+                else
                 {
-                    location = userInput.Split(' ')[1];//Set location
+                    client.Connect(hostName, port);//Establish connection
+                    OutputSettings();//Print current configuration
+                    Console.WriteLine("Connected to " + hostName + "\n");
+                    string userInput = Console.ReadLine().Trim();//Read user input and clear leading and trailing whitespace
+                    if (userInput.Split(' ').Length > 1)//Check if location exists
+                    {
+                        newLocation = userInput.Split(' ')[1];//Set location
+                    }
+                    name = userInput.Split(' ')[0];//Set name
                 }
-                name = userInput.Split(' ')[0];//Set name
+                if(!client.Connected)
+                {
+                    client.Connect(hostName, port);//Connect if not connected
+                }
+                NetworkStream NetworkStream = client.GetStream();//NetworkStream to instantiate..
+                sr = new StreamReader(NetworkStream);//Stream Reader
+                sw = new StreamWriter(NetworkStream);//Stream Writer
+                Request currentRequest = new Request();//CREATE REQUEST OBJECT
+                Console.Write("Press any key to continue . . .");//LOL
+                Console.ReadKey();//PAUSE
             }
             catch(Exception e)
             {
@@ -97,7 +120,6 @@ namespace location
             {
                 Console.WriteLine("Protocol Version: " + ProtocolVersion);//Output version if it has a value
             }
-            Console.WriteLine("\n");//Double line skip
         }
     }
 }

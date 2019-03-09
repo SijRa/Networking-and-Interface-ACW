@@ -5,15 +5,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace locationserver
 {
     class Program
     {
-        public static Dictionary<string, string> Location { get; set; }//Dictionary database
-
-        public static string name;
-        public static string newLocation;
+        static int ConnectionID;
+        public static Dictionary<string, string> UserLocation { get; set; }//Dictionary database
 
         static void Main(string[] args)
         {
@@ -25,9 +24,9 @@ namespace locationserver
         {
             TcpListener listener;
             Socket connection;
-            NetworkStream socketStream;
 
             InitialiseLocationDictionary();///intialise dictionary with test data
+            ConnectionID = 0;//initialise connection ID
 
             try
             {
@@ -37,12 +36,9 @@ namespace locationserver
                 while (true)
                 {
                     connection = listener.AcceptSocket();//Accepts client connection
-                    socketStream = new NetworkStream(connection);
-                    Console.WriteLine("\nSERVER: Connection Received");
-                    DoRequest(socketStream);//PROCESS REQUEST BY CLIENT
-                    socketStream.Close();
-                    connection.Close();//Closes client connection
-                    Console.WriteLine("SERVER: Connection Closed");
+                    ConnectionID++;
+                    Thread currentThread = new Thread(DoRequest);
+                    currentThread.Start(connection);//Start thread to DoRequest
                 }
             }
             catch (Exception e)
@@ -51,15 +47,27 @@ namespace locationserver
             }
         }
 
-        public static void DoRequest(NetworkStream socketStream)
+        public static void DoRequest(object argument)
         {
             try
             {
-                socketStream.ReadTimeout = 1000;//READ TIMEOUT
-                socketStream.WriteTimeout = 1000;//WRITE TIMEOUT
+                int threadId = ConnectionID;
+                Console.WriteLine("\nSERVER: Connection(" + threadId + ") RECEIVED");
+                Socket connection = (Socket)argument;
+                NetworkStream socketStream = new NetworkStream(connection);
+                ///socketStream.ReadTimeout = 1000;//READ TIMEOUT
+                ///socketStream.WriteTimeout = 1000;//WRITE TIMEOUT
+                while(!socketStream.DataAvailable)
+                {
+                    Thread.Sleep(1000);//thread sleeps until it receives data
+                }
 
-                Request currentRequest = new Request(socketStream);
-                Console.WriteLine("name: " + name + " location: " + newLocation);
+                Request currentRequest = new Request(socketStream);//Create request object to read request
+
+                socketStream.Close();
+                connection.Close();//Closes client connection
+                ConnectionID--;
+                Console.WriteLine("SERVER: Connection("  + threadId + ") CLOSED\n\n");
             }
             catch (Exception e)
             {
@@ -72,9 +80,9 @@ namespace locationserver
         /// </summary>
         public static void InitialiseLocationDictionary()
         {
-            Location = new Dictionary<string, string>();
-            Location.Add("Sijan", "Cray Lab");
-            Location.Add("cssbct", "RB-336");
+            UserLocation = new Dictionary<string, string>();
+            UserLocation.Add("Sijan", "Cray Lab");
+            UserLocation.Add("cssbct", "RB-336");
         }
 
         /// <summary>
@@ -86,11 +94,10 @@ namespace locationserver
         public static string UpdateLocation(string name, string newLocation)
         {
             //UPDATE
-
-            if (Location.ContainsKey(name))
+            if (UserLocation.ContainsKey(name))
             {
-                Location.Remove(name);
-                Location.Add(name, newLocation.Trim('"'));
+                UserLocation.Remove(name);
+                UserLocation.Add(name, newLocation.Trim('"'));
                 Console.WriteLine("SERVER: LOCATION Updated");
                 return newLocation;
             }
@@ -106,10 +113,10 @@ namespace locationserver
         public static string RetrieveLocation(string name)
         {
             //LOOK_UP
-            if (Location.ContainsKey(name))
+            if (UserLocation.ContainsKey(name))
             {
                 Console.WriteLine("SERVER: LOCATION Found");
-                return Location[name];
+                return UserLocation[name];
             }
             Console.WriteLine("SERVER: LOCATION NOT FOUND");
             return null;
