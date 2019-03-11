@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinForm_Server
@@ -76,7 +73,7 @@ namespace WinForm_Server
                 while (true)
                 {
                     connection = listener.AcceptSocket();//Accepts client connection
-                    ConnectionID++;
+                    IncrementConnectionID();
                     Thread currentThread = new Thread(DoRequest);
                     currentThread.Start(connection);//Start thread to DoRequest
                 }
@@ -88,6 +85,24 @@ namespace WinForm_Server
                     MessageBox.Show("ERROR: " + e.ToString() + "\nPlease restart","Server",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
                 Console.WriteLine("\n\nSERVER: " + e.ToString());
+            }
+        }
+        
+        public static void IncrementConnectionID()
+        {
+            ConnectionID++;
+            if(Program.WindowMode == true)
+            {
+                Program.MainForm.SetConnectionNumber(ConnectionID);
+            }
+        }
+
+        public static void DecrementConnectionID()
+        {
+            ConnectionID--;
+            if(Program.WindowMode == true)
+            {
+                Program.MainForm.SetConnectionNumber(ConnectionID);
             }
         }
 
@@ -114,11 +129,11 @@ namespace WinForm_Server
 
                 socketStream.Close();
                 connection.Close();//Closes client connection
-                ConnectionID--;
+                DecrementConnectionID();
                 Console.WriteLine("SERVER: Connection(" + threadId + ") CLOSED\n\n");
                 if (Program.WindowMode == true)//CHECK IF WINDOW MODE
                 {
-                    Program.MainForm.OutputMessage("Connection(" + threadId + ") CLOSED");//UPDATE Connection TextBox
+                    Program.MainForm.OutputMessage("Connection(" + threadId + ") CLOSED");//UPDATE output textbox
                 }
             }
             catch (Exception e)
@@ -139,6 +154,10 @@ namespace WinForm_Server
             UserLocation = new Dictionary<string, string>();
             UserLocation.Add("Sijan", "Cray Lab");
             UserLocation.Add("cssbct", "RB-336");
+            if (Program.WindowMode == true)
+            {
+                Program.MainForm.SetServerData(UserLocation);
+            }
         }
 
         /// <summary>
@@ -157,14 +176,18 @@ namespace WinForm_Server
                 Console.WriteLine("SERVER: LOCATION Updated");
                 if (Program.WindowMode == true)//CHECK IF WINDOW MODE
                 {
-                    Program.MainForm.OutputMessage("LOCATION Updated");//UPDATE Connection TextBox
+                    Program.MainForm.OutputMessage("LOCATION Updated");//UPDATE output textbox
                 }
                 return newLocation;
             }
             Console.WriteLine("SERVER: LOCATION NOT FOUND");
             if (Program.WindowMode == true)//CHECK IF WINDOW MODE
             {
-                Program.MainForm.OutputMessage("LOCATION NOT FOUND");//UPDATE Connection TextBox
+                Program.MainForm.OutputMessage("LOCATION NOT FOUND");//UPDATE output textbox
+            }
+            if (Program.WindowMode == true)//CHECK IF WINDOW MODE
+            {
+                Program.MainForm.SetServerData(UserLocation);//Update ServerData
             }
             return null;
         }
@@ -182,14 +205,18 @@ namespace WinForm_Server
                 Console.WriteLine("SERVER: LOCATION Found");
                 if (Program.WindowMode == true)//CHECK IF WINDOW MODE
                 {
-                    Program.MainForm.OutputMessage("LOCATION Found");//UPDATE Connection TextBox
+                    Program.MainForm.OutputMessage("LOCATION Found");//UPDATE output textbox
                 }
                 return UserLocation[name];
             }
             Console.WriteLine("SERVER: LOCATION NOT FOUND");
             if (Program.WindowMode == true)//CHECK IF WINDOW MODE
             {
-                Program.MainForm.OutputMessage("LOCATION NOT FOUND");//UPDATE Connection TextBox
+                Program.MainForm.OutputMessage("LOCATION NOT FOUND");//UPDATE output textbox
+            }
+            if (Program.WindowMode == true)//CHECK IF WINDOW MODE
+            {
+                Program.MainForm.SetServerData(UserLocation);//Update ServerData
             }
             return null;
         }

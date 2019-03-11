@@ -31,6 +31,10 @@ namespace WinForm_Server
         {
             string firstLine = streamReader.ReadLine();//First line
             Console.WriteLine("SERVER: " + firstLine);
+            if (Program.WindowMode == true)//CHECK IF WINDOW MODE
+            {
+                Program.MainForm.OutputMessage("First Line: " +firstLine);//UPDATE Connection TextBox
+            }
             //PROCESS FIRST LINE HERE
             if (firstLine.Split(' ')[0] == "GET" || firstLine.Split(' ')[0] == "POST" || firstLine.Split(' ')[0] == "PUT")//HTTP REQUEST
             {
@@ -43,6 +47,10 @@ namespace WinForm_Server
                 {
                     ProtocolCommand = firstLine.Split(' ')[0];//SET ProtocolCommand
                     Console.WriteLine("SERVER: Protocol: " + ProtocolCommand);
+                    if (Program.WindowMode == true)//CHECK IF WINDOW MODE
+                    {
+                        Program.MainForm.OutputMessage("Protocol" + ProtocolCommand);//UPDATE Connection TextBox
+                    }
                 }
                 if (firstLine.Split('/').Length == 2)//HTTP 0.9
                 {
@@ -127,6 +135,12 @@ namespace WinForm_Server
             Console.WriteLine("SERVER: Protocol Command: " + ProtocolCommand);
             Console.WriteLine("SERVER: Protocol Type: " + ProtocolType);
             Console.WriteLine("SERVER: Protocol Version: " + ProtocolVersion);
+            if (Program.WindowMode == true)//CHECK IF WINDOW MODE
+            {
+                Program.MainForm.OutputMessage("Protocol Command: " + ProtocolCommand);//UPDATE Connection TextBox
+                Program.MainForm.OutputMessage("Protocol Type: " + ProtocolType);//UPDATE Connection TextBox
+                Program.MainForm.OutputMessage("Protocol Version: " + ProtocolVersion);//UPDATE Connection TextBox
+            }
         }
     }
 }

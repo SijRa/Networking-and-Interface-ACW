@@ -19,7 +19,7 @@ namespace location
                 string serverResponse = Program.sr.ReadLine().Trim();//SERVER RESPONSE
                 if(Program.ProtocolCommand == "GET")
                 {
-                    if(serverResponse != "ERROR: no entries found" + "\r" + "\n")
+                    if(serverResponse != "ERROR: no entries found")
                     {
                         Console.WriteLine(Program.name + " " +"is in" + " " + serverResponse);
                     }

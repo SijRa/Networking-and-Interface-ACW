@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using System.Net;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace WinForm_Server
 {
@@ -55,6 +57,11 @@ namespace WinForm_Server
             ConnectionsLabel.Invoke(new Action(() => ConnectionsLabel.Text = "Connections: " + _Connections.ToString()));
         }
 
+        public void SetServerData(Dictionary<string,string> data)
+        {
+            ServerDataListBox.Invoke(new Action(() => ServerDataListBox.DataSource = data.ToList()));
+        }
+
         public void SetServerStatus(bool _isOnline)
         {
             if(_isOnline)
@@ -65,6 +72,26 @@ namespace WinForm_Server
             {
                 StatusLabel.Invoke(new Action(() => StatusLabel.Text = "Status: Offline"));
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var form = Program.MainForm;
+            form.ShowInTaskbar = false;
+            form.Opacity = 0;
+            Program.ShowConsole();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string IP;
+            string port;
+
+            textBox1.Invoke(new Action(() => IP = textBox1.Text));
+            textBox2.Invoke(new Action(() => port = textBox2.Text));
+
+            Process newInstance = new Process();
+            newInstance.StartInfo.UseShellExecute = true;
         }
     }
 }

@@ -30,7 +30,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ConsoleModeButton = new System.Windows.Forms.Button();
             this.OutputTextBox = new System.Windows.Forms.RichTextBox();
             this.NameTab1Label = new System.Windows.Forms.Label();
             this.ModuleNumberLabel = new System.Windows.Forms.Label();
@@ -45,19 +45,17 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ServerDataListBox = new System.Windows.Forms.ListBox();
             this.SettingsLabel = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.NameTab2Label = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.IPAddressChangeLabel = new System.Windows.Forms.Label();
             this.PortNumberChangeLabel = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.ServerDataListBox = new System.Windows.Forms.ListBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.SERVER = new System.Windows.Forms.Label();
             this.TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -78,7 +76,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.ConsoleModeButton);
             this.tabPage1.Controls.Add(this.OutputTextBox);
             this.tabPage1.Controls.Add(this.NameTab1Label);
             this.tabPage1.Controls.Add(this.ModuleNumberLabel);
@@ -98,14 +96,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Server";
             // 
-            // button1
+            // ConsoleModeButton
             // 
-            this.button1.Location = new System.Drawing.Point(207, 212);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Console Mode";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ConsoleModeButton.Location = new System.Drawing.Point(207, 204);
+            this.ConsoleModeButton.Name = "ConsoleModeButton";
+            this.ConsoleModeButton.Size = new System.Drawing.Size(92, 23);
+            this.ConsoleModeButton.TabIndex = 11;
+            this.ConsoleModeButton.Text = "Console Mode";
+            this.ConsoleModeButton.UseVisualStyleBackColor = true;
+            this.ConsoleModeButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // OutputTextBox
             // 
@@ -149,7 +148,7 @@
             // StatusLabel
             // 
             this.StatusLabel.AutoSize = true;
-            this.StatusLabel.Location = new System.Drawing.Point(193, 88);
+            this.StatusLabel.Location = new System.Drawing.Point(196, 91);
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(40, 13);
             this.StatusLabel.TabIndex = 5;
@@ -158,7 +157,7 @@
             // IPAddressLabel
             // 
             this.IPAddressLabel.AutoSize = true;
-            this.IPAddressLabel.Location = new System.Drawing.Point(193, 115);
+            this.IPAddressLabel.Location = new System.Drawing.Point(196, 118);
             this.IPAddressLabel.Name = "IPAddressLabel";
             this.IPAddressLabel.Size = new System.Drawing.Size(61, 13);
             this.IPAddressLabel.TabIndex = 4;
@@ -167,7 +166,7 @@
             // PortLabel
             // 
             this.PortLabel.AutoSize = true;
-            this.PortLabel.Location = new System.Drawing.Point(193, 133);
+            this.PortLabel.Location = new System.Drawing.Point(196, 136);
             this.PortLabel.Name = "PortLabel";
             this.PortLabel.Size = new System.Drawing.Size(29, 13);
             this.PortLabel.TabIndex = 3;
@@ -176,7 +175,7 @@
             // ConnectionsLabel
             // 
             this.ConnectionsLabel.AutoSize = true;
-            this.ConnectionsLabel.Location = new System.Drawing.Point(193, 69);
+            this.ConnectionsLabel.Location = new System.Drawing.Point(196, 72);
             this.ConnectionsLabel.Name = "ConnectionsLabel";
             this.ConnectionsLabel.Size = new System.Drawing.Size(69, 13);
             this.ConnectionsLabel.TabIndex = 2;
@@ -204,7 +203,7 @@
             // RightTab1Label
             // 
             this.RightTab1Label.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.RightTab1Label.Location = new System.Drawing.Point(190, 65);
+            this.RightTab1Label.Location = new System.Drawing.Point(193, 68);
             this.RightTab1Label.Name = "RightTab1Label";
             this.RightTab1Label.Size = new System.Drawing.Size(118, 92);
             this.RightTab1Label.TabIndex = 1;
@@ -220,25 +219,22 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Location = new System.Drawing.Point(196, 195);
+            this.groupBox4.Location = new System.Drawing.Point(196, 187);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(112, 48);
             this.groupBox4.TabIndex = 14;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Switch Mode";
+            this.groupBox4.Text = "Change Mode";
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage2.Controls.Add(this.ServerDataListBox);
             this.tabPage2.Controls.Add(this.SettingsLabel);
-            this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Controls.Add(this.button3);
-            this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.NameTab2Label);
             this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox7);
+            this.tabPage2.Controls.Add(this.SERVER);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -246,42 +242,23 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Others";
             // 
+            // ServerDataListBox
+            // 
+            this.ServerDataListBox.FormattingEnabled = true;
+            this.ServerDataListBox.Location = new System.Drawing.Point(59, 152);
+            this.ServerDataListBox.Name = "ServerDataListBox";
+            this.ServerDataListBox.Size = new System.Drawing.Size(161, 95);
+            this.ServerDataListBox.TabIndex = 21;
+            // 
             // SettingsLabel
             // 
             this.SettingsLabel.AutoSize = true;
             this.SettingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SettingsLabel.Location = new System.Drawing.Point(22, 13);
+            this.SettingsLabel.Location = new System.Drawing.Point(253, 29);
             this.SettingsLabel.Name = "SettingsLabel";
             this.SettingsLabel.Size = new System.Drawing.Size(69, 13);
             this.SettingsLabel.TabIndex = 20;
             this.SettingsLabel.Text = "SETTINGS";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(237, 117);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 18;
-            this.button4.Text = "Stop";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(237, 86);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "Start";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(237, 54);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "Restart";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // NameTab2Label
             // 
@@ -295,16 +272,27 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.button5);
             this.groupBox5.Controls.Add(this.textBox1);
             this.groupBox5.Controls.Add(this.IPAddressChangeLabel);
             this.groupBox5.Controls.Add(this.PortNumberChangeLabel);
             this.groupBox5.Controls.Add(this.textBox2);
-            this.groupBox5.Location = new System.Drawing.Point(17, 36);
+            this.groupBox5.Location = new System.Drawing.Point(40, 15);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(198, 89);
+            this.groupBox5.Size = new System.Drawing.Size(198, 113);
             this.groupBox5.TabIndex = 15;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Server Configuration";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(91, 80);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "Change";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // textBox1
             // 
@@ -338,31 +326,24 @@
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 4;
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Location = new System.Drawing.Point(230, 36);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(90, 115);
-            this.groupBox6.TabIndex = 19;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Server Control";
-            // 
-            // ServerDataListBox
-            // 
-            this.ServerDataListBox.FormattingEnabled = true;
-            this.ServerDataListBox.Location = new System.Drawing.Point(29, 154);
-            this.ServerDataListBox.Name = "ServerDataListBox";
-            this.ServerDataListBox.Size = new System.Drawing.Size(161, 95);
-            this.ServerDataListBox.TabIndex = 21;
-            // 
             // groupBox7
             // 
-            this.groupBox7.Location = new System.Drawing.Point(17, 131);
+            this.groupBox7.Location = new System.Drawing.Point(45, 131);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(185, 129);
+            this.groupBox7.Size = new System.Drawing.Size(188, 129);
             this.groupBox7.TabIndex = 22;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Server Data";
+            // 
+            // SERVER
+            // 
+            this.SERVER.AutoSize = true;
+            this.SERVER.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SERVER.Location = new System.Drawing.Point(253, 12);
+            this.SERVER.Name = "SERVER";
+            this.SERVER.Size = new System.Drawing.Size(69, 18);
+            this.SERVER.TabIndex = 23;
+            this.SERVER.Text = "SERVER";
             // 
             // MainForm
             // 
@@ -404,19 +385,17 @@
         private System.Windows.Forms.Label ModuleNumberLabel;
         private System.Windows.Forms.Label NameTab2Label;
         private System.Windows.Forms.RichTextBox OutputTextBox;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ConsoleModeButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label SettingsLabel;
         private System.Windows.Forms.ListBox ServerDataListBox;
         private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label SERVER;
+        private System.Windows.Forms.Button button5;
     }
 }
 

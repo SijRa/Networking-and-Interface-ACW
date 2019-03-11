@@ -38,6 +38,10 @@ namespace WinForm_Server
         protected void SendWHOIS(string name, string newLocation)
         {
             Console.WriteLine("SERVER: Creating WHOIS Response");
+            if (Program.WindowMode == true)//CHECK IF WINDOW MODE
+            {
+                Program.MainForm.OutputMessage("Creating WHOIS Response");//UPDATE Output TextBox
+            }
             if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(newLocation))//POST
             {
                 string updatedLocation = Server.UpdateLocation(name, newLocation);//UPDATE LOCATION
@@ -47,7 +51,7 @@ namespace WinForm_Server
                 }
                 else
                 {
-                    streamWriter.Write("ERROR: No entries" + "\r" + "\n");
+                    streamWriter.Write("ERROR: no entries found" + "\r" + "\n");
                 }
             }
             else if (!string.IsNullOrEmpty(name) && string.IsNullOrEmpty(newLocation))//GET
@@ -59,19 +63,31 @@ namespace WinForm_Server
                 }
                 else
                 {
-                    streamWriter.Write("ERROR: No entries" + "\r" + "\n");
+                    streamWriter.Write("ERROR: no entries found" + "\r" + "\n");
                 }
             }
             else
             {
                 Console.WriteLine("SERVER: Response NOT SENT");
+                if (Program.WindowMode == true)//CHECK IF WINDOW MODE
+                {
+                    Program.MainForm.OutputMessage("Response NOT SENT");//UPDATE Connection TextBox
+                }
             }
             Console.WriteLine("SERVER: Response SENT");
+            if (Program.WindowMode == true)//CHECK IF WINDOW MODE
+            {
+                Program.MainForm.OutputMessage("Response SENT");//UPDATE Connection TextBox
+            }
         }
 
         protected void SendHTTP(string name, string newLocation)
         {
             Console.WriteLine("SERVER: Creating HTTP Response");
+            if (Program.WindowMode == true)//CHECK IF WINDOW MODE
+            {
+                Program.MainForm.OutputMessage("Creating ");//UPDATE Connection TextBox
+            }
             switch (ProtocolVersion)
             {
                 case "0.9":

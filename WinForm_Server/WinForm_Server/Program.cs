@@ -25,6 +25,12 @@ namespace WinForm_Server
             var handle = GetConsoleWindow();
             ShowWindow(handle, SW_HIDE);
         }
+
+        public static void ShowConsoleWindow()
+        {
+            var handle = GetConsoleWindow();
+            ShowWindow(handle, SW_SHOW);
+        }
     }
 
     static class Program
@@ -72,8 +78,11 @@ namespace WinForm_Server
                 ConsoleMethods.AllocConsole();
                 Server currentServer = new Server();
             }
+
+        }
+        public static void ShowConsole()
+        {
+            ConsoleMethods.ShowConsoleWindow();
         }
     }
-
-    
 }
