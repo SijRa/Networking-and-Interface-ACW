@@ -23,6 +23,8 @@ namespace location
         public static StreamReader sr;
         public static StreamWriter sw;
 
+        public static TcpClient client;
+
         static void Main(string[] args)
         {
             try
@@ -33,7 +35,7 @@ namespace location
                 hostName = "localhost";//Default host
                 int port = 43;//Default port
                 ProtocolType = "WHOIS";//Default protocol
-                TcpClient client = new TcpClient();
+                client = new TcpClient();
                 if (args.Length != 0)//Check for user-entered connection settings
                 {
                     string nameLocation = "";//String to contain name and location
@@ -74,10 +76,10 @@ namespace location
                                 break;
                         }
                     }
-                    name = nameLocation.Split(' ')[0];//Name extraction
+                    name = nameLocation.Split(' ')[0].Trim();//Name extraction
                     if(nameLocation.Split(' ').Length > 1)
                     {
-                        newLocation = nameLocation.Split(' ')[1];//Location extraction
+                        newLocation = nameLocation.Substring(name.Length).Trim();//Location extraction
                     }
                     if(string.IsNullOrEmpty(name))//Name needs to be provided whether GET or SET
                     {
@@ -101,15 +103,26 @@ namespace location
                     client.Connect(hostName, port);//Connect if not connected
                 }
                 NetworkStream NetworkStream = client.GetStream();//NetworkStream to instantiate..
+                NetworkStream.ReadTimeout = 1000;
+                NetworkStream.WriteTimeout = 1000;
                 sr = new StreamReader(NetworkStream);//Stream Reader
                 sw = new StreamWriter(NetworkStream);//Stream Writer
                 Request currentRequest = new Request();//CREATE REQUEST OBJECT
-                Console.Write("Press any key to continue . . .");//LOL
-                Console.ReadKey();//PAUSE
+                //Console.Write("Press any key to continue . . .");//LOL
+                //Console.ReadKey();//PAUSE
+            }
+            catch(IOException)
+            {
+                Console.WriteLine("Connection timed out");
+                client.Close();
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                //Console.ReadKey();//PAUSE
             }
         }
 

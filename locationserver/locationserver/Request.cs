@@ -64,7 +64,7 @@ namespace locationserver
                 if(firstLine.Split(' ').Length > 1)
                 {
                     ProtocolCommand = "POST";
-                    newLocation = firstLine.Split(' ')[1].Trim();
+                    newLocation = firstLine.Substring(name.Length).Trim();
                 }
             }
             Response currentResponse = new Response(this);//Create a response object for response
@@ -86,7 +86,7 @@ namespace locationserver
                     }
                     break;
                 case "1.0":
-                    name = firstLine.Split(' ')[1].Split('/')[1].Trim();
+                    name = firstLine.Split(' ')[1].Split('/')[1].Split('?')[1].Trim();
                     if (ProtocolCommand == "POST")
                     {
                         if(!string.IsNullOrEmpty(streamReader.ReadLine()))

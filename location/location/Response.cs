@@ -21,7 +21,7 @@ namespace location
                 {
                     if(serverResponse != "ERROR: no entries found")
                     {
-                        Console.WriteLine(Program.name + " " +"is in" + " " + serverResponse);
+                        Console.WriteLine(Program.name + " " +"is" + " " + serverResponse);
                     }
                     else
                     {
@@ -32,7 +32,7 @@ namespace location
                 {
                     if(serverResponse == "OK")//successfully updated location
                     {
-                        Console.WriteLine(Program.name + " " + "location changed to be in" + " " + Program.newLocation);
+                        Console.WriteLine(Program.name + " " + "location changed to be" + " " + Program.newLocation + "\r" + "\n");
                     }
                     else
                     {
@@ -103,6 +103,18 @@ namespace location
             else if(serverCode == "404")//"Not Found"
             {
                 Console.WriteLine("ERROR: no entries found");
+            }
+            else if(serverCode == "301")
+            {
+                Console.WriteLine(firstLine);
+                while (!string.IsNullOrEmpty(Program.sr.ReadLine()))
+                {
+                    Console.WriteLine(Program.sr.ReadLine().ToString());
+                }
+                while (!string.IsNullOrEmpty(Program.sr.ReadLine()))
+                {
+                    Console.WriteLine(Program.sr.ReadLine().ToString());
+                }
             }
         }
     }

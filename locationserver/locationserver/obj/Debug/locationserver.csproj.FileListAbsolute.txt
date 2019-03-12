@@ -5,13 +5,6 @@ C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locatio
 C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locationserver\obj\Debug\locationserver.csproj.CoreCompileInputs.cache
 C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locationserver\obj\Debug\locationserver.exe
 C:\Users\554282\source\repos\Networking and Interface ACW\locationserver\locationserver\obj\Debug\locationserver.pdb
-\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\bin\Debug\locationserver.exe.config
-\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\bin\Debug\locationserver.exe
-\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\bin\Debug\locationserver.pdb
-\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\obj\Debug\locationserver.csprojAssemblyReference.cache
-\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\obj\Debug\locationserver.csproj.CoreCompileInputs.cache
-\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\obj\Debug\locationserver.exe
-\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\obj\Debug\locationserver.pdb
 C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\bin\Debug\locationserver.exe.config
 C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\bin\Debug\locationserver.exe
 C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\bin\Debug\locationserver.pdb
@@ -19,3 +12,9 @@ C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\locationse
 C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\obj\Debug\locationserver.csproj.CoreCompileInputs.cache
 C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\obj\Debug\locationserver.exe
 C:\Users\Sijan\OneDrive\Documents\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\obj\Debug\locationserver.pdb
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\bin\Debug\locationserver.exe.config
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\bin\Debug\locationserver.exe
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\bin\Debug\locationserver.pdb
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\obj\Debug\locationserver.csproj.CoreCompileInputs.cache
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\obj\Debug\locationserver.exe
+\\adir.hull.ac.uk\home\554\554282\GitHub\Networking-and-Interface-ACW\locationserver\locationserver\obj\Debug\locationserver.pdb

@@ -73,9 +73,9 @@ namespace location
                 else
                 {
                     Program.sw.Write("POST" + " " + "/" + Program.name + " " + "HTTP/1.0" + "\r" + "\n");
-                    Program.sw.Write("Content-Length:" + " " + "0" + "\r" + "\n");
+                    Program.sw.Write("Content-Length:" + " " + Program.newLocation.Length.ToString() + "\r" + "\n");
                     Program.sw.Write("\r" + "\n");
-                    Program.sw.Write(Program.newLocation + "\r" + "\n");
+                    Program.sw.Write(Program.newLocation);
                 }
             }
             else if(Program.ProtocolVersion == "1.1")//HTTP 1.1
@@ -90,9 +90,9 @@ namespace location
                 {
                     Program.sw.Write("POST" + " " + "/" + " " + "HTTP/1.1" + "\r" + "\n");
                     Program.sw.Write("Host:" + " " + Program.hostName + "\r" + "\n");
-                    Program.sw.Write("Content-Length:" + " " + "0" + "\r" + "\n");
+                    Program.sw.Write("Content-Length:" + " " + (Program.name.Length + Program.newLocation.Length + 15).ToString() + "\r" + "\n");//15 extra characters include "name=", "&" and "location="
                     Program.sw.Write("\r" + "\n");
-                    Program.sw.Write("name" + "=" + Program.name + "&" + "location" + "=" + Program.newLocation + "\r" + "\n");
+                    Program.sw.Write("name" + "=" + Program.name + "&" + "location" + "=" + Program.newLocation);
                 }
             }
             else

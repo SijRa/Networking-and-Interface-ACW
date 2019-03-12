@@ -55,8 +55,8 @@ namespace locationserver
                 Console.WriteLine("\nSERVER: Connection(" + threadId + ") RECEIVED");
                 Socket connection = (Socket)argument;
                 NetworkStream socketStream = new NetworkStream(connection);
-                ///socketStream.ReadTimeout = 1000;//READ TIMEOUT
-                ///socketStream.WriteTimeout = 1000;//WRITE TIMEOUT
+                socketStream.ReadTimeout = 10000;//READ TIMEOUT
+                socketStream.WriteTimeout = 10000;//WRITE TIMEOUT
                 while(!socketStream.DataAvailable)
                 {
                     Thread.Sleep(1000);//thread sleeps until it receives data
@@ -83,6 +83,7 @@ namespace locationserver
             UserLocation = new Dictionary<string, string>();
             UserLocation.Add("Sijan", "Cray Lab");
             UserLocation.Add("cssbct", "RB-336");
+            UserLocation.Add("554282", "Dover");
         }
 
         /// <summary>
@@ -101,8 +102,12 @@ namespace locationserver
                 Console.WriteLine("SERVER: LOCATION Updated");
                 return newLocation;
             }
-            Console.WriteLine("SERVER: LOCATION NOT FOUND");
-            return null;
+            else
+            {
+                UserLocation.Add(name, newLocation);
+                Console.WriteLine("SERVER: NAME: " + name + "\nSERVER: LOCATION: " + newLocation);
+                return newLocation;
+            }
         }
 
         /// <summary>

@@ -45,10 +45,6 @@ namespace locationserver
                 {
                     streamWriter.Write("OK" + "\r" + "\n");
                 }
-                else
-                {
-                    streamWriter.Write("ERROR: No entries" + "\r" + "\n");
-                }
             }
             else if(!string.IsNullOrEmpty(name)&&string.IsNullOrEmpty(newLocation))//GET
             {
@@ -59,7 +55,7 @@ namespace locationserver
                 }
                 else
                 {
-                    streamWriter.Write("ERROR: No entries" + "\r" + "\n");
+                    streamWriter.Write("ERROR: no entries found" + "\r" + "\n");
                 }
             }
             else
@@ -88,7 +84,7 @@ namespace locationserver
                         else
                         {
                             //not found
-                            streamWriter.Write("HTTP/1.0" + " " + "404" + " " + "Not" + " " + "Found" + "\r" + "\n");
+                            streamWriter.Write("HTTP/0.9" + " " + "404" + " " + "Not" + " " + "Found" + "\r" + "\n");
                             streamWriter.Write("Content-Type:" + " " + "text/plain" + "\r" + "\n");
                             streamWriter.Write("\r" + "\n");
                         }
@@ -99,13 +95,6 @@ namespace locationserver
                         if(!string.IsNullOrEmpty(updatedLocation))
                         {
                             streamWriter.Write("HTTP/0.9" + " " + "200" + " " + "OK" + "\r" + "\n");
-                            streamWriter.Write("Content-Type:" + " " + "text/plain" + "\r" + "\n");
-                            streamWriter.Write("\r" + "\n");
-                        }
-                        else
-                        {
-                            //not found
-                            streamWriter.Write("HTTP/1.0" + " " + "404" + " " + "Not" + " " + "Found" + "\r" + "\n");
                             streamWriter.Write("Content-Type:" + " " + "text/plain" + "\r" + "\n");
                             streamWriter.Write("\r" + "\n");
                         }
@@ -139,13 +128,6 @@ namespace locationserver
                             streamWriter.Write("Content-Type:" + " " + "text/plain" + "\r" + "\n");
                             streamWriter.Write("\r" + "\n");
                         }
-                        else
-                        {
-                            //not found
-                            streamWriter.Write("HTTP/1.0" + " " + "404" + " " + "Not" + " " + "Found" + "\r" + "\n");
-                            streamWriter.Write("Content-Type:" + " " + "text/plain" + "\r" + "\n");
-                            streamWriter.Write("\r" + "\n");
-                        }
                     }
                     break;
                 case "1.1":
@@ -162,9 +144,9 @@ namespace locationserver
                         else
                         {
                             //not found
-                            streamWriter.Write("HTTP/1.1" + " " + "404" + " " + "Not" + " " + "Found" + "\n");
-                            streamWriter.Write("Content-Type:" + " " + "text/plain" + "\n");
-                            streamWriter.Write("\n");
+                            streamWriter.Write("HTTP/1.1" + " " + "404" + " " + "Not" + " " + "Found" + "\r" + "\n");
+                            streamWriter.Write("Content-Type:" + " " + "text/plain" + "\r" + "\n");
+                            streamWriter.Write("\r" + "\n");
                         }
                     }
                     else if(ProtocolCommand == "POST")
@@ -175,13 +157,6 @@ namespace locationserver
                             streamWriter.Write("HTTP/1.1" + " " + "200" + " " + "OK" + "\r" + "\n");
                             streamWriter.Write("Content-Type:" + " " + "text/plain" + "\r" + "\n");
                             streamWriter.Write("\r" + "\n");
-                        }
-                        else
-                        {
-                            //not found
-                            streamWriter.Write("HTTP/1.1" + " " + "404" + " " + "Not" + " " + "Found" + "\n");
-                            streamWriter.Write("Content-Type:" + " " + "text/plain" + "\n");
-                            streamWriter.Write("\n");
                         }
                     }
                     break;
