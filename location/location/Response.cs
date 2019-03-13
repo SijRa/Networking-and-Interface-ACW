@@ -59,7 +59,7 @@ namespace location
                             }
                             Program.sr.ReadLine();//empty line
                             string retrievedLocation = Program.sr.ReadLine().Trim();
-                            Console.WriteLine(Program.name + " " + "is in" + " " + retrievedLocation);
+                            Console.WriteLine(Program.name + " " + "is" + " " + retrievedLocation);
                         }
                         else if(Program.ProtocolCommand == "POST")
                         {
@@ -75,7 +75,7 @@ namespace location
                             }
                             Program.sr.ReadLine();//empty line
                             string retrievedLocation = Program.sr.ReadLine().Trim();
-                            Console.WriteLine(Program.name + " " + "is in" + " " + retrievedLocation);
+                            Console.WriteLine(Program.name + " " + "is" + " " + retrievedLocation);
                         }
                         else if (Program.ProtocolCommand == "POST")
                         {
@@ -91,7 +91,7 @@ namespace location
                             }
                             Program.sr.ReadLine();//empty line
                             string retrievedLocation = Program.sr.ReadLine().Trim();
-                            Console.WriteLine(Program.name + " " + "is in" + " " + retrievedLocation);
+                            Console.WriteLine(Program.name + " " + "is" + " " + retrievedLocation);
                         }
                         else if (Program.ProtocolCommand == "POST")
                         {

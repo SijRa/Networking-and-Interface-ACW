@@ -33,7 +33,7 @@ namespace locationserver
             string firstLine = streamReader.ReadLine();//First line
             Console.WriteLine("SERVER: " + firstLine);
             //PROCESS FIRST LINE HERE
-            if(firstLine.Split(' ')[0] == "GET" || firstLine.Split(' ')[0] == "POST" || firstLine.Split(' ')[0] == "PUT")//HTTP REQUEST
+            if(firstLine.Split(' ')[0] == "GET" || firstLine.Split(' ')[0] == "POST" || firstLine.Split(' ')[0] == "PUT" && firstLine.Split(' ').Length < 3)//HTTP REQUEST
             {
                 ProtocolType = "HTTP";
                 if(firstLine.Split(' ')[0] == "PUT")//HTTP 0.9
@@ -86,9 +86,13 @@ namespace locationserver
                     }
                     break;
                 case "1.0":
-                    name = firstLine.Split(' ')[1].Split('/')[1].Split('?')[1].Trim();
+                    if(ProtocolCommand == "GET")
+                    {
+                        name = firstLine.Split(' ')[1].Split('/')[1].Split('?')[1].Trim();
+                    }
                     if (ProtocolCommand == "POST")
                     {
+                        name = firstLine.Split(' ')[1].Split('/')[1].Trim();
                         if(!string.IsNullOrEmpty(streamReader.ReadLine()))
                         {
                             while (!string.IsNullOrEmpty(streamReader.ReadLine()))

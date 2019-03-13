@@ -103,18 +103,18 @@ namespace location
                     client.Connect(hostName, port);//Connect if not connected
                 }
                 NetworkStream NetworkStream = client.GetStream();//NetworkStream to instantiate..
-                NetworkStream.ReadTimeout = 1000;
-                NetworkStream.WriteTimeout = 1000;
+                //NetworkStream.ReadTimeout = 10000;
+                //NetworkStream.WriteTimeout = 10000;
                 sr = new StreamReader(NetworkStream);//Stream Reader
                 sw = new StreamWriter(NetworkStream);//Stream Writer
                 Request currentRequest = new Request();//CREATE REQUEST OBJECT
                 //Console.Write("Press any key to continue . . .");//LOL
+                client.Dispose();
                 //Console.ReadKey();//PAUSE
             }
             catch(IOException)
             {
-                Console.WriteLine("Connection timed out");
-                client.Close();
+                Console.WriteLine("ERROR: StreamReader/Writer timed out");
             }
             catch(Exception e)
             {
