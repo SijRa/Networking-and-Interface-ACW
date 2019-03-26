@@ -104,7 +104,7 @@ namespace WinForm_Server
                         else
                         {
                             //not found
-                            streamWriter.Write("HTTP/1.0" + " " + "404" + " " + "Not" + " " + "Found" + "\r" + "\n");
+                            streamWriter.Write("HTTP/0.9" + " " + "404" + " " + "Not" + " " + "Found" + "\r" + "\n");
                             streamWriter.Write("Content-Type:" + " " + "text/plain" + "\r" + "\n");
                             streamWriter.Write("\r" + "\n");
                         }
@@ -121,7 +121,7 @@ namespace WinForm_Server
                         else
                         {
                             //not found
-                            streamWriter.Write("HTTP/1.0" + " " + "404" + " " + "Not" + " " + "Found" + "\r" + "\n");
+                            streamWriter.Write("HTTP/0.9" + " " + "404" + " " + "Not" + " " + "Found" + "\r" + "\n");
                             streamWriter.Write("Content-Type:" + " " + "text/plain" + "\r" + "\n");
                             streamWriter.Write("\r" + "\n");
                         }
@@ -180,7 +180,7 @@ namespace WinForm_Server
                             //not found
                             streamWriter.Write("HTTP/1.1" + " " + "404" + " " + "Not" + " " + "Found" + "\n");
                             streamWriter.Write("Content-Type:" + " " + "text/plain" + "\n");
-                            streamWriter.Write("\n");
+                            streamWriter.Write("\r" + "\n");
                         }
                     }
                     else if (ProtocolCommand == "POST")

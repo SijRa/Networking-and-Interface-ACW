@@ -12,32 +12,24 @@ namespace WinForm_Server
         static int ConnectionID;
         public static Dictionary<string, string> UserLocation { get; set; }//Dictionary database
 
+        public static bool serverRunning;
+
         public Server()
         {
+            serverRunning = true;
+            TcpListener listener;
+            Socket connection;
+            InitialiseLocationDictionary();///intialise dictionary with test data
+            ConnectionID = 0;//initialise connection ID
             Console.WriteLine("\n\nSERVER: Running Server...");
             if (Program.WindowMode == true)//CHECK IF WINDOW MODE
             {
                 Program.MainForm.OutputMessage("Running Server..");//UPDATE Connection TextBox
             }
-            RunServer();//Start running server
-        }
-
-        public static void RunServer()
-        {
-            bool serverRunning = true;
-
-            TcpListener listener;
-            Socket connection;
-
-            InitialiseLocationDictionary();///intialise dictionary with test data
-            ConnectionID = 0;//initialise connection ID
-
-
             try
             {
                 IPAddress iPAddress;
                 int port;
-
                 Console.WriteLine("\nSERVER: Listening...\n\n");
                 if(Program.WindowMode == true)//CHECK IF WINDOW MODE
                 {
@@ -85,6 +77,7 @@ namespace WinForm_Server
                     MessageBox.Show("ERROR: " + e.ToString() + "\nPlease restart","Server",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
                 Console.WriteLine("\n\nSERVER: " + e.ToString());
+                Console.ReadLine();
             }
         }
         
@@ -124,9 +117,7 @@ namespace WinForm_Server
                 {
                     Thread.Sleep(1000);//thread sleeps until it receives data
                 }
-
                 Request currentRequest = new Request(socketStream);//Create request object to read request
-
                 socketStream.Close();
                 connection.Close();//Closes client connection
                 DecrementConnectionID();

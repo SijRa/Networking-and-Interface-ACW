@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WinForm_Server
 {
@@ -33,7 +29,7 @@ namespace WinForm_Server
             Console.WriteLine("SERVER: " + firstLine);
             if (Program.WindowMode == true)//CHECK IF WINDOW MODE
             {
-                Program.MainForm.OutputMessage("First Line: " +firstLine);//UPDATE Connection TextBox
+                Program.MainForm.OutputMessage("First Line: " + firstLine);//UPDATE Connection TextBox
             }
             //PROCESS FIRST LINE HERE
             if (firstLine.Split(' ')[0] == "GET" || firstLine.Split(' ')[0] == "POST" || firstLine.Split(' ')[0] == "PUT")//HTTP REQUEST
@@ -71,7 +67,14 @@ namespace WinForm_Server
                 if (firstLine.Split(' ').Length > 1)
                 {
                     ProtocolCommand = "POST";
-                    newLocation = firstLine.Split(' ')[1].Trim();
+                    if(firstLine.Split(' ').Length > 1)
+                    {
+                        newLocation = firstLine.Substring(name.Length);
+                    }
+                    else
+                    {
+                        newLocation = firstLine.Split(' ')[1];
+                    }
                 }
             }
             Response currentResponse = new Response(this);//Create a response object for response
@@ -93,17 +96,24 @@ namespace WinForm_Server
                     }
                     break;
                 case "1.0":
-                    name = firstLine.Split(' ')[1].Split('/')[1].Trim();
                     if (ProtocolCommand == "POST")
                     {
-                        if (!string.IsNullOrEmpty(streamReader.ReadLine()))
-                        {
-                            while (!string.IsNullOrEmpty(streamReader.ReadLine()))
-                            {
-                                Console.WriteLine(streamReader.ReadLine());
-                            }
-                        }
-                        //streamReader.ReadLine();//EMPTY LINE
+                        name = firstLine.Split('/')[1].Split(' ')[0].Trim();
+                    }
+                    else
+                    {
+                        name = firstLine.Split(' ')[1].Split('?')[1].Trim();
+                    }
+                    if (ProtocolCommand == "POST")
+                    {
+                        ///Need to fix
+                        //while (!string.IsNullOrEmpty(streamReader.ReadLine()))
+                        //{
+                        //    streamReader.ReadLine();
+                        //}
+                        //QUICK FIX
+                        streamReader.ReadLine();//SKIP LINE
+                        streamReader.ReadLine();//SKIP LINE
                         newLocation = streamReader.ReadLine().Trim();
                     }
                     break;

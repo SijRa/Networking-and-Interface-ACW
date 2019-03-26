@@ -62,10 +62,10 @@ namespace locationserver
                     Thread.Sleep(1000);//thread sleeps until it receives data
                 }
                 Request currentRequest = new Request(socketStream);//Create request object to read request
-                socketStream.Close();
-                connection.Close();//Closes client connection
-                ConnectionID--;
-                Console.WriteLine("SERVER: Connection("  + threadId + ") CLOSED\n\n");
+                //socketStream.Close();
+                //connection.Close();//Closes client connection
+                //ConnectionID--;
+                //Console.WriteLine("SERVER: Connection("  + threadId + ") CLOSED\n\n");
             }
             catch (Exception e)
             {

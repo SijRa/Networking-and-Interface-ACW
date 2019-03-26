@@ -1,11 +1,12 @@
 ﻿namespace WinForm_Server
 {
-    partial class MainForm
+    partial class ServerForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -27,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerForm));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.ConsoleModeButton = new System.Windows.Forms.Button();
@@ -49,7 +50,7 @@
             this.SettingsLabel = new System.Windows.Forms.Label();
             this.NameTab2Label = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.ButtonChange = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.IPAddressChangeLabel = new System.Windows.Forms.Label();
             this.PortNumberChangeLabel = new System.Windows.Forms.Label();
@@ -112,6 +113,7 @@
             this.OutputTextBox.Location = new System.Drawing.Point(22, 65);
             this.OutputTextBox.Name = "OutputTextBox";
             this.OutputTextBox.ReadOnly = true;
+            this.OutputTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.OutputTextBox.Size = new System.Drawing.Size(141, 167);
             this.OutputTextBox.TabIndex = 10;
             this.OutputTextBox.Text = "";
@@ -272,7 +274,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.button5);
+            this.groupBox5.Controls.Add(this.ButtonChange);
             this.groupBox5.Controls.Add(this.textBox1);
             this.groupBox5.Controls.Add(this.IPAddressChangeLabel);
             this.groupBox5.Controls.Add(this.PortNumberChangeLabel);
@@ -284,15 +286,15 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Server Configuration";
             // 
-            // button5
+            // ButtonChange
             // 
-            this.button5.Location = new System.Drawing.Point(91, 80);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "Change";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.ButtonChange.Location = new System.Drawing.Point(91, 80);
+            this.ButtonChange.Name = "ButtonChange";
+            this.ButtonChange.Size = new System.Drawing.Size(75, 23);
+            this.ButtonChange.TabIndex = 5;
+            this.ButtonChange.Text = "Change";
+            this.ButtonChange.UseVisualStyleBackColor = true;
+            this.ButtonChange.Click += new System.EventHandler(this.buttonChange_Click);
             // 
             // textBox1
             // 
@@ -333,7 +335,7 @@
             this.groupBox7.Size = new System.Drawing.Size(188, 129);
             this.groupBox7.TabIndex = 22;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Server Data";
+            this.groupBox7.Text = "User Data";
             // 
             // SERVER
             // 
@@ -345,15 +347,16 @@
             this.SERVER.TabIndex = 23;
             this.SERVER.Text = "SERVER";
             // 
-            // MainForm
+            // ServerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(363, 321);
             this.Controls.Add(this.TabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MainForm";
+            this.Name = "ServerForm";
             this.Text = "Server";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_Closing);
             this.TabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -395,7 +398,7 @@
         private System.Windows.Forms.ListBox ServerDataListBox;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label SERVER;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button ButtonChange;
     }
 }
 

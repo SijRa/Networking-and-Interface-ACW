@@ -36,7 +36,7 @@ namespace WinForm_Server
     static class Program
     {
 
-        public static MainForm MainForm;
+        public static ServerForm MainForm;
 
         public static bool WindowMode = false;
         public static string PortNumber;
@@ -71,13 +71,13 @@ namespace WinForm_Server
                 ConsoleMethods.HideConsoleWindow();
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
+                Application.Run(new ServerForm());
             }
             else
             {
-                ConsoleMethods.AllocConsole();
                 Server currentServer = new Server();
             }
+
 
         }
         public static void ShowConsole()
